@@ -61,3 +61,9 @@ If you want the file to format on save, you can install the VsCode Ruff extensio
   }
 }
 ```
+
+# Exporting the Notebook to PDF
+
+If you want to export the jupyter notebook to pdf, install the packages from [this guide](https://nbconvert.readthedocs.io/en/latest/install.html#installation) and select the option from this dropdown menu:
+
+![alt text](static/image.png)
