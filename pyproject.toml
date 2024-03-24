@@ -29,6 +29,10 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
+    "*.pdf", 
+    "*.xlsx", 
+    "*.doc", 
+    "*.csv"
 ]
 
 
