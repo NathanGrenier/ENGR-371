@@ -35,3 +35,29 @@ Use the following command while in the venv to install the project's dependencie
 ```bash
 pip install -r requirements.txt
 ```
+
+## Code Formatting and Linting
+
+I like using Ruff to format and lint my python code. This package is installed whenever you [install the project's dependencies](#installing-project-dependencies) and can be used with the following command:
+
+```bash
+ruff format .
+```
+
+If you want the file to format on save, you can install the VsCode Ruff extension and add these lines to VsCodes' `setting.json` file:
+
+```json
+{
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.organizeImports": "explicit"
+  },
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  }
+}
+```
