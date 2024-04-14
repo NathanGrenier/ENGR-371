@@ -62,8 +62,18 @@ If you want the file to format on save, you can install the VsCode Ruff extensio
 }
 ```
 
-# Exporting the Notebook to PDF
+# Exporting the Jupyter Notebook
+
+## To PDF
 
 If you want to export the jupyter notebook to pdf, install the packages from [this guide](https://nbconvert.readthedocs.io/en/latest/install.html#installation) and select the option from this dropdown menu:
 
 ![alt text](static/image.png)
+
+## To `.tex`
+
+You can use the following command to convert the jupyter notebook to a `.tex` file:
+
+```bash
+jupyter-nbconvert --to latex analysis.ipynb
+```
