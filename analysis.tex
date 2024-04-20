@@ -388,7 +388,8 @@
     
 
 \begin{document}
-    
+    \title{Report Analysis}
+    \date{April 18, 2024}
     \maketitle
     
     
@@ -435,6 +436,13 @@ nature of an online survey, the responses we collected were subjective.
 Since it is difficult for respondents to measure the quality and
 quantity of sleep on their own there is a large amount of subjectivity
 in our results.
+\newpage
+    \hypertarget{code-analysis}{%
+\section{Code Analysis}\label{code-analysis}}
+
+\hypertarget{setting-up-environemnt-and-preparing-data}{%
+\subsection{Setting up Environemnt and Preparing
+Data}\label{setting-up-environemnt-and-preparing-data}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
@@ -461,14 +469,7 @@ in our results.
 \PY{n}{df}\PY{o}{.}\PY{n}{shape}
 \end{Verbatim}
 \end{tcolorbox}
-
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{2}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-(55, 13)
-\end{Verbatim}
-\end{tcolorbox}
-        
+  \newpage
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -511,7 +512,7 @@ in our results.
 \end{tcolorbox}
 
     \hypertarget{distribution-graphs-based-on-device-usage}{%
-\section{Distribution Graphs Based on Device
+\subsection{Distribution Graphs Based on Device
 Usage}\label{distribution-graphs-based-on-device-usage}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -521,32 +522,42 @@ Usage}\label{distribution-graphs-based-on-device-usage}}
 \PY{n}{categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
 
 \PY{c+c1}{\PYZsh{} Set up the figure and axes}
-\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Merge data for \PYZdq{}30 minutes \PYZhy{} 1 hour\PYZdq{} and \PYZdq{}\PYZgt{} 1 hour\PYZdq{} categories}
+\PY{n}{merged\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+
+\PY{c+c1}{\PYZsh{} Calculate n, mean, and standard deviation for merged data}
+\PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{p}{)}
+\PY{n}{mu}\PY{p}{,} \PY{n}{std} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Print n, mean, and standard deviation for merged data}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Merged Data (30 minutes \PYZhy{} 1 hour \PYZam{} \PYZgt{} 1 hour)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Count (n): }\PY{l+s+si}{\PYZob{}}\PY{n}{n}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Mean (mu): }\PY{l+s+si}{\PYZob{}}\PY{n}{mu}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Standard Deviation: }\PY{l+s+si}{\PYZob{}}\PY{n}{std}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Create a smoothed histogram using the fitted Gaussian distribution for merged data}
+\PY{n}{sns}\PY{o}{.}\PY{n}{histplot}\PY{p}{(}\PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{kde}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{stat}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Set title and labels for merged data plot}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Device Usage: \PYZgt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Hours Slept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Iterate over each category of end\PYZus{}of\PYZus{}phone\PYZus{}usage}
-\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{category} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{categories}\PY{p}{)}\PY{p}{:}
+\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{category} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{categories}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} Skipping \PYZdq{}\PYZlt{} 30 minutes\PYZdq{} category}
   \PY{c+c1}{\PYZsh{} Filter the dataframe for the current category}
   \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category}\PY{p}{]}
 
-  \PY{c+c1}{\PYZsh{} Calculate n, mean, and standard deviation}
-  \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{filtered\PYZus{}df}\PY{p}{)}
-  \PY{n}{mu}\PY{p}{,} \PY{n}{std} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
-
-  \PY{c+c1}{\PYZsh{} Print n, mean, and standard deviation}
-  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category: }\PY{l+s+si}{\PYZob{}}\PY{n}{category}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Count (n): }\PY{l+s+si}{\PYZob{}}\PY{n}{n}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Mean (mu): }\PY{l+s+si}{\PYZob{}}\PY{n}{mu}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Standard Deviation: }\PY{l+s+si}{\PYZob{}}\PY{n}{std}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-
   \PY{c+c1}{\PYZsh{} Create a smoothed histogram using the fitted Gaussian distribution}
   \PY{n}{sns}\PY{o}{.}\PY{n}{histplot}\PY{p}{(}
-    \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{kde}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{stat}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{density}\PY{l+s+s2}{\PYZdq{}}
+    \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{kde}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{stat}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{density}\PY{l+s+s2}{\PYZdq{}}
   \PY{p}{)}
 
-  \PY{c+c1}{\PYZsh{} Set title and labels}
-  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{End of Phone Usage: }\PY{l+s+si}{\PYZob{}}\PY{n}{category}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Hours Slept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{c+c1}{\PYZsh{} Set title and labels for individual category plot}
+  \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Device Usage: }\PY{l+s+si}{\PYZob{}}\PY{n}{category}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Hours Slept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Adjust layout}
 \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
@@ -555,25 +566,15 @@ Usage}\label{distribution-graphs-based-on-device-usage}}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Category: < 30 minutes
-   Count (n): 42
-   Mean (mu): 6.738095238095238
-   Standard Deviation: 1.2546963929767045
-
-Category: 30 minutes - 1 hour
-   Count (n): 8
-   Mean (mu): 6.875
-   Standard Deviation: 1.0532687216470449
-
-Category: > 1 hour
-   Count (n): 5
-   Mean (mu): 6.8
-   Standard Deviation: 1.32664991614216
+Merged Data (30 minutes - 1 hour \& > 1 hour)
+   Count (n): 13
+   Mean (mu): 6.846153846153846
+   Standard Deviation: 1.166596222161777
 
     \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_5_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_6_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -606,17 +607,18 @@ Standard Deviation: 1.24h
     \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_6_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_7_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \hypertarget{histograms-detailing-smaller-quantitative-variables-per-device-usage-group}{%
-\section{Histograms Detailing Smaller Quantitative Variables Per Device
-Usage
+    \newpage
+    \subsection{Histograms Detailing Smaller Quantitative Variables Per
+Device Usage
 Group}\label{histograms-detailing-smaller-quantitative-variables-per-device-usage-group}}
 
     \hypertarget{category-30-minutes}{%
-\subsection{Category: \textless{} 30
+\subsubsection{Category: \textless{} 30
 minutes}\label{category-30-minutes}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
@@ -641,8 +643,21 @@ minutes}\label{category-30-minutes}}
 \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{question} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
   \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category}\PY{p}{]}
 
+  \PY{c+c1}{\PYZsh{} Limiting options for \PYZdq{}end\PYZus{}of\PYZus{}phone\PYZus{}usage\PYZus{}activity\PYZdq{}}
+  \PY{k}{if} \PY{n}{question} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage\PYZus{}activity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+    \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}
+      \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{n}{question}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}
+        \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Social Media (Ex: Instagram, TikTok...)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Watch Movies/Shows}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Play games}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+      \PY{p}{)}
+    \PY{p}{]}
+
   \PY{c+c1}{\PYZsh{} Count occurrences of each option in the current column}
   \PY{n}{counts} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{n}{question}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+
+  \PY{c+c1}{\PYZsh{} Print associated values to the question}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Values associated with question: }\PY{l+s+si}{\PYZob{}}\PY{n}{question}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{n}{counts}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
 
   \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{counts}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{counts}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{skyblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
   \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
@@ -653,47 +668,96 @@ minutes}\label{category-30-minutes}}
 \end{Verbatim}
 \end{tcolorbox}
 
+    \begin{Verbatim}[commandchars=\\\{\}]
+Values associated with question: exercise\_frequency
+exercise\_frequency
+1-3 times per week            16
+Less than once per week       10
+I don't exercise               8
+More than 3 times per week     8
+Name: count, dtype: int64
+
+Values associated with question: night\_wakeups
+night\_wakeups
+Rarely (1 time)          21
+Never (0 times)          18
+Sometimes (2-3 times)     2
+Frequently (4+)           1
+Name: count, dtype: int64
+
+Values associated with question: underlying\_conditions
+underlying\_conditions
+No     30
+Yes    12
+Name: count, dtype: int64
+
+Values associated with question: end\_of\_phone\_usage\_activity
+end\_of\_phone\_usage\_activity
+Social Media (Ex: Instagram, TikTok{\ldots})    30
+Watch Movies/Shows                          6
+Play games                                  2
+Name: count, dtype: int64
+
+Values associated with question: phone\_placement
+phone\_placement
+Bedside               35
+In bedroom             6
+Outside of bedroom     1
+Name: count, dtype: int64
+
+    \end{Verbatim}
+
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_9_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_10_1.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+\newpage    
     \hypertarget{category-30-minutes---1-hour}{%
-\subsection{Category: 30 minutes - 1
+\subsubsection{Category: 30 minutes - 1
 hour}\label{category-30-minutes---1-hour}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{category} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
 
 \PY{c+c1}{\PYZsh{} Define the DataFrame directly}
-\PY{n}{data} \PY{o}{=} \PY{p}{\PYZob{}}
+\PY{n}{data} \PY{o}{=} \PY{p}{[}
   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage\PYZus{}activity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{phone\PYZus{}placement}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{night\PYZus{}wakeups}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{underlying\PYZus{}conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exercise\PYZus{}frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-\PY{p}{\PYZcb{}}
+\PY{p}{]}
 
 \PY{c+c1}{\PYZsh{} Plot the vertical bar graphs for each question}
 \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
 
-\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category: }\PY{l+s+si}{\PYZob{}}\PY{n}{category}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category: \PYZgt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{question} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
-  \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}
-    \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category}
-  \PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Make a copy to avoid modifying the original DataFrame}
+  \PY{n}{merged\PYZus{}counts} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+  \PY{k}{for} \PY{n}{category} \PY{o+ow}{in} \PY{n}{categories}\PY{p}{:}
+    \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}
+      \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category}
+    \PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Make a copy to avoid modifying the original DataFrame}
 
-  \PY{c+c1}{\PYZsh{} For exercise\PYZus{}frequency, replace 1 with \PYZdq{}Yes\PYZdq{} and 0 with \PYZdq{}No\PYZdq{}}
-  \PY{k}{if} \PY{n}{question} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{underlying\PYZus{}conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
-    \PY{n}{filtered\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{question}\PY{p}{]} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{n}{question}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Yes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} For exercise\PYZus{}frequency, replace 1 with \PYZdq{}Yes\PYZdq{} and 0 with \PYZdq{}No\PYZdq{}}
+    \PY{k}{if} \PY{n}{question} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{underlying\PYZus{}conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+      \PY{n}{filtered\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{question}\PY{p}{]} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{n}{question}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Yes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
 
   \PY{c+c1}{\PYZsh{} Count occurrences of each option in the current column}
   \PY{n}{counts} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{n}{question}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+  \PY{n}{merged\PYZus{}counts} \PY{o}{=} \PY{n}{merged\PYZus{}counts}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{counts}\PY{p}{,} \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
 
-  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{counts}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{counts}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{skyblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{c+c1}{\PYZsh{} Print associated values to the question}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Values associated with question: }\PY{l+s+si}{\PYZob{}}\PY{n}{question}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{n}{merged\PYZus{}counts}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+
+  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{barh}\PY{p}{(}
+    \PY{n}{merged\PYZus{}counts}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{merged\PYZus{}counts}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{skyblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}
+  \PY{p}{)}
   \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
   \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{n}{question}\PY{p}{)}
 
@@ -702,65 +766,53 @@ hour}\label{category-30-minutes---1-hour}}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_11_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \hypertarget{category-1-hour}{%
-\subsection{Category: \textgreater{} 1 hour}\label{category-1-hour}}
+    \begin{Verbatim}[commandchars=\\\{\}]
+Values associated with question: end\_of\_phone\_usage\_activity
+end\_of\_phone\_usage\_activity
+Play games                                 2.0
+Social Media (Ex: Instagram, TikTok{\ldots})    2.0
+Watch Movies/Shows                         1.0
+dtype: float64
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{category} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}
+Values associated with question: phone\_placement
+phone\_placement
+Bedside       4.0
+In bedroom    1.0
+dtype: float64
 
-\PY{c+c1}{\PYZsh{} Define the DataFrame directly}
-\PY{n}{data} \PY{o}{=} \PY{p}{\PYZob{}}
-  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage\PYZus{}activity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{phone\PYZus{}placement}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{night\PYZus{}wakeups}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{underlying\PYZus{}conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exercise\PYZus{}frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
-\PY{p}{\PYZcb{}}
+Values associated with question: night\_wakeups
+night\_wakeups
+Never (0 times)          1.0
+Rarely (1 time)          3.0
+Sometimes (2-3 times)    1.0
+dtype: float64
 
-\PY{c+c1}{\PYZsh{} Plot the vertical bar graphs for each question}
-\PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+Values associated with question: underlying\_conditions
+underlying\_conditions
+No     3.0
+Yes    2.0
+dtype: float64
 
-\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category: }\PY{l+s+si}{\PYZob{}}\PY{n}{category}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+Values associated with question: exercise\_frequency
+exercise\_frequency
+1-3 times per week         3.0
+I don't exercise           1.0
+Less than once per week    1.0
+dtype: float64
 
-\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{question} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
-  \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}
-    \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category}
-  \PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Make a copy to avoid modifying the original DataFrame}
-
-  \PY{c+c1}{\PYZsh{} For exercise\PYZus{}frequency, replace 1 with \PYZdq{}Yes\PYZdq{} and 0 with \PYZdq{}No\PYZdq{}}
-  \PY{k}{if} \PY{n}{question} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{underlying\PYZus{}conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
-    \PY{n}{filtered\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{question}\PY{p}{]} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{n}{question}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Yes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
-
-  \PY{c+c1}{\PYZsh{} Count occurrences of each option in the current column}
-  \PY{n}{counts} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{n}{question}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
-
-  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{counts}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{counts}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{skyblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{n}{question}\PY{p}{)}
-
-\PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
+    \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_13_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_12_1.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+    \newpage
     \hypertarget{heatmap-of-variable-correlations}{%
-\section{Heatmap of Variable
+\subsection{Heatmap of Variable
 Correlations}\label{heatmap-of-variable-correlations}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
+\prompt{In}{incolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Convert the \PYZsq{}underlying\PYZus{}conditions\PYZsq{} column to a boolean}
 \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{underlying\PYZus{}conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{underlying\PYZus{}conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}
@@ -806,9 +858,9 @@ Correlations}\label{heatmap-of-variable-correlations}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
+\prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{c+c1}{\PYZsh{} Heatmap of correlations between hours of sleep, sleep quality, and phone usage before bed}
+\PY{c+c1}{\PYZsh{} Calculate correlations between variables}
 \PY{n}{df\PYZus{}corr} \PY{o}{=} \PY{n}{df\PYZus{}encoded}\PY{p}{[}
   \PY{p}{[}
     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
@@ -819,44 +871,67 @@ Correlations}\label{heatmap-of-variable-correlations}}
   \PY{p}{]}
 \PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
 
+\PY{c+c1}{\PYZsh{} Generate heatmap}
 \PY{n}{heatmap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df\PYZus{}corr}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.2f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_16_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{analysis_files/analysis_15_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \hypertarget{calculations}{%
-\section{Calculations}\label{calculations}}
+\subsection{Calculations}\label{calculations}}
 
     \hypertarget{sample-size-mean-and-standard-deviation-per-device-usage-group}{%
-\subsection{Sample Size, Mean and Standard Deviation per Device Usage
+\subsubsection{Sample Size, Mean and Standard Deviation per Device Usage
 Group}\label{sample-size-mean-and-standard-deviation-per-device-usage-group}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
+\prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k+kn}{import} \PY{n}{norm}
-
 \PY{c+c1}{\PYZsh{} Define the categories for end\PYZus{}of\PYZus{}phone\PYZus{}usage}
-\PY{n}{categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
 
 \PY{c+c1}{\PYZsh{} Iterate over each category of end\PYZus{}of\PYZus{}phone\PYZus{}usage}
 \PY{k}{for} \PY{n}{category} \PY{o+ow}{in} \PY{n}{categories}\PY{p}{:}
   \PY{c+c1}{\PYZsh{} Filter the dataframe for the current category}
-  \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category}\PY{p}{]}
+  \PY{k}{if} \PY{n}{category} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+    \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category}\PY{p}{]}
+  \PY{k}{else}\PY{p}{:}
+    \PY{n}{filtered\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
 
-  \PY{c+c1}{\PYZsh{} Calculate sample size, mean, and standard deviation}
+  \PY{c+c1}{\PYZsh{} Calculate sample size, mean, median, mode, standard deviation,}
+  \PY{c+c1}{\PYZsh{} quartiles, and interquartile range}
   \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{filtered\PYZus{}df}\PY{p}{)}
   \PY{n}{mu}\PY{p}{,} \PY{n}{std} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+  \PY{n}{median} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+  \PY{n}{mode} \PY{o}{=} \PY{p}{(}
+    \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+  \PY{p}{)}  \PY{c+c1}{\PYZsh{} Mode may return multiple values, so we take the first one}
+  \PY{n}{q1} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{)}
+  \PY{n}{q3} \PY{o}{=} \PY{n}{filtered\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{l+m+mf}{0.75}\PY{p}{)}
+  \PY{n}{iqr} \PY{o}{=} \PY{n}{q3} \PY{o}{\PYZhy{}} \PY{n}{q1}
+
+  \PY{c+c1}{\PYZsh{} Calculate 95\PYZpc{} confidence interval}
+  \PY{n}{confidence\PYZus{}interval} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{interval}\PY{p}{(}\PY{l+m+mf}{0.95}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{n}{mu}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n}{std} \PY{o}{/} \PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}
+  \PY{n}{confidence\PYZus{}interval\PYZus{}rounded} \PY{o}{=} \PY{p}{(}
+    \PY{n+nb}{round}\PY{p}{(}\PY{n}{confidence\PYZus{}interval}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+    \PY{n+nb}{round}\PY{p}{(}\PY{n}{confidence\PYZus{}interval}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+  \PY{p}{)}
 
   \PY{c+c1}{\PYZsh{} Print results}
   \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Category: }\PY{l+s+si}{\PYZob{}}\PY{n}{category}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
   \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Sample Size (n): }\PY{l+s+si}{\PYZob{}}\PY{n}{n}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
   \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Mean (mu): }\PY{l+s+si}{\PYZob{}}\PY{n}{mu}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Standard Deviation: }\PY{l+s+si}{\PYZob{}}\PY{n}{std}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Median: }\PY{l+s+si}{\PYZob{}}\PY{n}{median}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Mode: }\PY{l+s+si}{\PYZob{}}\PY{n}{mode}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Standard Deviation: }\PY{l+s+si}{\PYZob{}}\PY{n}{std}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   1st Quartile (Q1): }\PY{l+s+si}{\PYZob{}}\PY{n}{q1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   3rd Quartile (Q3): }\PY{l+s+si}{\PYZob{}}\PY{n}{q3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Interquartile Range (IQR): }\PY{l+s+si}{\PYZob{}}\PY{n}{iqr}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   95\PYZpc{} Confidence Interval: }\PY{l+s+si}{\PYZob{}}\PY{n}{confidence\PYZus{}interval\PYZus{}rounded}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -864,80 +939,70 @@ Group}\label{sample-size-mean-and-standard-deviation-per-device-usage-group}}
 Category: < 30 minutes
    Sample Size (n): 42
    Mean (mu): 6.738095238095238
+   Median: 7.0
+   Mode: 7
    Standard Deviation: 1.2546963929767045
+   1st Quartile (Q1): 6.0
+   3rd Quartile (Q3): 7.75
+   Interquartile Range (IQR): 1.75
+   95\% Confidence Interval: (6.36, 7.12)
 
-Category: 30 minutes - 1 hour
-   Sample Size (n): 8
-   Mean (mu): 6.875
-   Standard Deviation: 1.0532687216470449
-
-Category: > 1 hour
-   Sample Size (n): 5
-   Mean (mu): 6.8
-   Standard Deviation: 1.32664991614216
+Category: > 30 minutes
+   Sample Size (n): 13
+   Mean (mu): 6.846153846153846
+   Median: 7.0
+   Mode: 6
+   Standard Deviation: 1.166596222161777
+   1st Quartile (Q1): 6.0
+   3rd Quartile (Q3): 7.0
+   Interquartile Range (IQR): 1.0
+   95\% Confidence Interval: (6.21, 7.48)
 
     \end{Verbatim}
-
+\newpage
     \hypertarget{performing-the-t-tests}{%
-\subsection{Performing the T-Tests}\label{performing-the-t-tests}}
+\subsubsection{Performing the T-Tests}\label{performing-the-t-tests}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k+kn}{import} \PY{n}{ttest\PYZus{}ind}
 
-\PY{c+c1}{\PYZsh{} Perform t\PYZhy{}tests between pairs of categories}
-\PY{n}{categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{c+c1}{\PYZsh{} Perform t\PYZhy{}test between merged category and \PYZdq{}\PYZlt{} 30 minutes\PYZdq{}}
+\PY{n}{category\PYZus{}1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{category\PYZus{}2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 30 minutes}\PY{l+s+s2}{\PYZdq{}}
 
-\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{categories}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{categories}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-    \PY{n}{cat1} \PY{o}{=} \PY{n}{categories}\PY{p}{[}\PY{n}{i}\PY{p}{]}
-    \PY{n}{cat2} \PY{o}{=} \PY{n}{categories}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+\PY{c+c1}{\PYZsh{} Filter data for the two categories}
+\PY{n}{data\PYZus{}cat1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{category\PYZus{}1}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{data\PYZus{}cat2} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{30 minutes \PYZhy{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{} 1 hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{[}
+  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}
+\PY{p}{]}
 
-    \PY{c+c1}{\PYZsh{} Filter data for the two categories}
-    \PY{n}{data\PYZus{}cat1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{cat1}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
-    \PY{n}{data\PYZus{}cat2} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{end\PYZus{}of\PYZus{}phone\PYZus{}usage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{n}{cat2}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hours\PYZus{}of\PYZus{}sleep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{c+c1}{\PYZsh{} Perform t\PYZhy{}test}
+\PY{n}{t\PYZus{}stat}\PY{p}{,} \PY{n}{p\PYZus{}value} \PY{o}{=} \PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{n}{data\PYZus{}cat1}\PY{p}{,} \PY{n}{data\PYZus{}cat2}\PY{p}{)}
 
-    \PY{c+c1}{\PYZsh{} Perform t\PYZhy{}test}
-    \PY{n}{t\PYZus{}stat}\PY{p}{,} \PY{n}{p\PYZus{}value} \PY{o}{=} \PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{n}{data\PYZus{}cat1}\PY{p}{,} \PY{n}{data\PYZus{}cat2}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Print results}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{T\PYZhy{}test between `}\PY{l+s+si}{\PYZob{}}\PY{n}{category\PYZus{}1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{` and `}\PY{l+s+si}{\PYZob{}}\PY{n}{category\PYZus{}2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{`:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   T\PYZhy{}statistic: }\PY{l+s+si}{\PYZob{}}\PY{n}{t\PYZus{}stat}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   P\PYZhy{}value: }\PY{l+s+si}{\PYZob{}}\PY{n}{p\PYZus{}value}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
-    \PY{c+c1}{\PYZsh{} Print results}
-    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{T\PYZhy{}test between `}\PY{l+s+si}{\PYZob{}}\PY{n}{cat1}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{` and `}\PY{l+s+si}{\PYZob{}}\PY{n}{cat2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{`:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   T\PYZhy{}statistic: }\PY{l+s+si}{\PYZob{}}\PY{n}{t\PYZus{}stat}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   P\PYZhy{}value: }\PY{l+s+si}{\PYZob{}}\PY{n}{p\PYZus{}value}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-
-    \PY{c+c1}{\PYZsh{} Determine the significance}
-    \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.05}
-    \PY{k}{if} \PY{n}{p\PYZus{}value} \PY{o}{\PYZlt{}} \PY{n}{alpha}\PY{p}{:}
-      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The differences between group means are statistically significant.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    \PY{k}{else}\PY{p}{:}
-      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There is no statistically significant difference between group means.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Determine the significance}
+\PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.05}
+\PY{k}{if} \PY{n}{p\PYZus{}value} \PY{o}{\PYZlt{}} \PY{n}{alpha}\PY{p}{:}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The differences between group means are statistically significant.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{k}{else}\PY{p}{:}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{There is no statistically significant difference between group means.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-T-test between `< 30 minutes` and `30 minutes - 1 hour`:
-   T-statistic: -0.2839294311947307
-   P-value: 0.7776856517484941
-There is no statistically significant difference between group means.
+T-test between `< 30 minutes` and `> 30 minutes`:
+   T-statistic: -0.27074525154304346
+   P-value: 0.7876386012124794
 
-T-test between `< 30 minutes` and `> 1 hour`:
-   T-statistic: -0.10141329858930315
-   P-value: 0.9196729096880304
 There is no statistically significant difference between group means.
-
-T-test between `30 minutes - 1 hour` and `> 1 hour`:
-   T-statistic: 0.10378538823462011
-   P-value: 0.9192077343692122
-There is no statistically significant difference between group means.
-
     \end{Verbatim}
-
-    \hypertarget{conclusion}{%
-\section{Conclusion}\label{conclusion}}
-
-\texttt{A\ conclusion\ on\ whether\ your\ hypothesis\ was\ reasonable,\ and\ justification\ for\ your\ conclusion}
-
+\newpage
     \hypertarget{comments}{%
 \section{Comments}\label{comments}}
 
@@ -945,22 +1010,88 @@ There is no statistically significant difference between group means.
 \subsection{Did your method of sampling result in a random
 sample?}\label{did-your-method-of-sampling-result-in-a-random-sample}}
 
+The method if sampling used in this experiment, which involved sharing a
+Google Form survey with university students aged 20-24 attending
+Concordia University, does not exactly result in a random sample. This
+is because the sample was obtained through convenience sampling, where
+individuals who were easily accessible and willing to participate were
+included. While this method can be efficient and cost-effective, it may
+introduce bias into the sample, as individuals who choose to participate
+may have different characteristics or experiences compared to those who
+do not participate.
+
 \hypertarget{if-your-sample-was-not-a-random-sample-what-sorts-of-measures-could-you-take-if-you-were-to-do-this-project-again-to-get-a-random-sample}{%
 \subsection{If your sample was not a random sample, what sorts of
 measures could you take if you were to do this project again, to get a
 random
 sample?}\label{if-your-sample-was-not-a-random-sample-what-sorts-of-measures-could-you-take-if-you-were-to-do-this-project-again-to-get-a-random-sample}}
 
+If we were to conduct this project again with the aim of obtaining a
+random sample, several measures would be taken. One approach would be to
+implement simple random sampling, where every member of the population
+has an equal chance of being selected for the sample. This could involve
+using a random number generator to select participants from a list of
+all eligible individuals within the target population. Alternatively,
+stratified random sampling could be employed to ensure representation
+from different subgroups within the population, such as different age
+groups or academic majors.
+
 \hypertarget{based-on-the-experiment-would-it-be-appropriate-to-write-a-revised-hypothesis-in-hampsteand-5-cars-go-through-each-yellow-light.}{%
 \subsection{Based on the experiment, would it be appropriate to write a
 revised hypothesis (``in Hampsteand, 5 cars go through each yellow
 light.'')}\label{based-on-the-experiment-would-it-be-appropriate-to-write-a-revised-hypothesis-in-hampsteand-5-cars-go-through-each-yellow-light.}}
+
+Based on the experiment's findings, it may be appropriate to consider
+revising the hypothesis to reflect the nuanced relationships observed
+between device usage patterns and sleep quality. Rather than a binary
+hypothesis stating that extended device usage before bedtime is
+associated with poorer sleep quality, a revised hypothesis could
+acknowledge the complexity of these relationships and explore potential
+moderators or mediators that may influence the observed associations.
+For example, the revised hypothesis could consider factors such as
+individual differences in screen time habits, bedtime routines, and
+underlying health conditions that may interact with device usage to
+impact sleep quality.
 
 \hypertarget{comment-on-whether-you-think-your-results-can-be-extrapolated-to-draw-more-general-conclusions-perhaps-on-wider-populations.-state-your-opinion-and-then-back-it-up-with-well-reasoned-arguments.}{%
 \subsection{Comment on whether you think your results can be
 extrapolated to draw more general conclusions, perhaps on wider
 populations. State your opinion and then back it up with well-reasoned
 arguments.}\label{comment-on-whether-you-think-your-results-can-be-extrapolated-to-draw-more-general-conclusions-perhaps-on-wider-populations.-state-your-opinion-and-then-back-it-up-with-well-reasoned-arguments.}}
+
+In terms of extrapolating the results to draw more general conclusions,
+it's essential to consider the limitations of the study design and
+sample characteristics. The sample consisted of university students aged
+20-24 from a specific institution, which may limit the generalizability
+of the findings to wider populations. Additionally, the use of
+self-reported data and the potential for selection bias may affect the
+validity and reliability of the results. While the findings provide
+valuable insights into the relationships between device usage and sleep
+quality within this specific demographic, caution should be exercised
+when applying these findings to broader populations.
+
+    \hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+In conclusion, this study investigated the relationship between extended
+use of electronic devices before bedtime and sleep quality among
+university students aged 20-24.
+
+Our findings revealed nuanced associations between device usage patterns
+and sleep outcomes. While descriptive statistics highlighted slight
+variations in mean sleep duration between individuals with different
+levels of device usage before bedtime, a t-test analysis indicated a
+lack of statistically significant difference in mean hours slept between
+groups with device usage durations of less than 30 minutes and more than
+30 minutes.
+
+Furthermore, correlation analyses unveiled intriguing dynamics,
+suggesting potential links between shorter device usage before sleep and
+longer sleep duration, as well as between prolonged device usage and
+shorter sleep duration. Additionally, associations between device usage
+patterns and subjective sleep quality were observed, with shorter device
+usage linked to more favorable perceptions of sleep quality and
+prolonged usage associated with poorer subjective sleep quality.
 
 
     % Add a bibliography block to the postdoc
